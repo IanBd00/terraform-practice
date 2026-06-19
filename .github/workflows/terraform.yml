@@ -30,6 +30,11 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Criar arquivo de chave privada
+        run: |
+          mkdir -p /tmp/oci_keys
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > /tmp/oci_keys/oci_api_key.pem
+
       - name: Terraform Init
         run: terraform init
 
