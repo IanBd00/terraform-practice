@@ -26,13 +26,21 @@ jobs:
       - name: Criar arquivo de chave privada OCI
         run: |
           mkdir -p /tmp/oci_keys
-          echo "${{ secrets.OCI_PRIVATE_KEY }}" > /tmp/oci_keys/oci_api_key.pem
+          cat << 'EOF' > /tmp/oci_keys/oci_api_key.pem
+          ${{ secrets.OCI_PRIVATE_KEY }}
+          EOF
 
       - name: Criar chave pública SSH temporária
-        run: echo "${{ secrets.SSH_PUBLIC_KEY }}" > /tmp/oci_keys/ssh_key.pub
+        run: |
+          cat << 'EOF' > /tmp/oci_keys/ssh_key.pub
+          ${{ secrets.SSH_PUBLIC_KEY }}
+          EOF
 
       - name: Criar terraform.tfvars
-        run: echo "${{ secrets.TF_VARS_CONTENT }}" > terraform.tfvars
+        run: |
+          cat << 'EOF' > terraform.tfvars
+          ${{ secrets.TF_VARS_CONTENT }}
+          EOF
 
       - name: Terraform Init
         run: terraform init
