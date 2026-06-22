@@ -8,7 +8,7 @@ terraform{
 
     backend "oci" {
         bucket = "tf-state-bucket"
-        key = "gnexum/terraform.tfstate"
+        key = "TERRAFORM-COMPARTMENT/terraform.tfstate"
         namespace = "grgxeup22eul"
         region = "sa-saopaulo-1"
 

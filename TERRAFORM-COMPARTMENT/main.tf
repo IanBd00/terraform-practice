@@ -1,12 +1,12 @@
 module "compartment" {
-  source = "./modules/compartment"
+  source = "../modules/compartment"
   tenancy_ocid = var.tenancy_ocid
   name = var.compartment_name
   description = var.compartment_description
 }
 
 module "network" {
-  source = "./modules/network"
+  source = "../modules/network"
   compartment_id = module.compartment.compartment_id
   vcn_cidr = var.vcn_cidr
   vcn_name = var.vcn_display_name
@@ -17,7 +17,7 @@ module "network" {
 }
 
 module "compute" {
-  source = "./modules/compute"
+  source = "../modules/compute"
   compartment_id = module.compartment.compartment_id
   public_subnet_id = module.network.public_subnet_id
   nsg_id = module.network.nsg_id
