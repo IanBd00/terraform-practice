@@ -93,4 +93,4 @@ project-1/
 - **Ambiente de importação/migração** em `COMPARTMENT-IMPORT-TERRAFORM`
 - **CI/CD automatizado** através do GitHub Actions
 - **Backend Terraform** configurado para armazenamento remoto do estado na OCI Object Storage
-```
+
