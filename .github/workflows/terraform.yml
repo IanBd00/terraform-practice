@@ -1,60 +1,64 @@
-name: Terraform
+name: Terraform CI
 
 on:
-  pull_request:
-    branches: [main]
-  push:
-    branches: [main]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
-    env:
-      TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
-      TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
-      TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
-      TF_VAR_private_key: ${{ secrets.OCI_PRIVATE_KEY }}
-      TF_VAR_region: ${{ secrets.OCI_REGION }}
-      OCI_private_key_path: /tmp/oci_keys/oci_api_key.pem
+    terraform:
+        runs-on: ubuntu-latest
+        env:
+            TF_VAR_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
+            TF_VAR_user_ocid: ${{ secrets.OCI_USER_OCID }}
+            TF_VAR_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
+            TF_VAR_private_key: ${{ secrets.OCI_PRIVATE_KEY }}
+            TF_VAR_region: ${{ secrets.OCI_REGION }}
+            OCI_tenancy_ocid: ${{ secrets.OCI_TENANCY_OCID }}
+            OCI_user_ocid: ${{ secrets.OCI_USER_OCID }}
+            OCI_fingerprint: ${{ secrets.OCI_FINGERPRINT }}
+            OCI_private_key_path: /tmp/oci_keys/oci_api_key.pem
 
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
+        steps:
+          - name: Checkout código
+            uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+          - name: Setup Terraform
+            uses: hashicorp/setup-terraform@v3
 
-      - name: Criar arquivo de chave privada OCI
-        run: |
-          mkdir -p /tmp/oci_keys
-          cat << 'EOF' > /tmp/oci_keys/oci_api_key.pem
-          ${{ secrets.OCI_PRIVATE_KEY }}
-          EOF
+          - name: Criar chave privada OCI
+            run: |
+                mkdir -p /tmp/oci_keys
+                cat << 'EOF' > /tmp/oci_keys/oci_api_key.pem
+                ${{ secrets.OCI_PRIVATE_KEY }}
+                EOF
 
-      - name: Criar chave pública SSH temporária
-        run: printf '%s' "${{ secrets.SSH_PUBLIC_KEY }}" > /tmp/oci_keys/ssh_key.pub
+          - name: Escrever chave SSH pública
+            run: |
+                printf '%s' "${{ secrets.SSH_PUBLIC_KEY }}" > /tmp/oci_keys/ssh_key.pub
 
-      - name: Criar terraform.tfvars
-        run: |
-          cat << 'EOF' > terraform.tfvars
-          ${{ secrets.TF_VARS_CONTENT }}
-          EOF
+          - name: Atribuir valores das variáveis
+            run: |
+                cat << 'EOF' > terraform.tfvars
+                ${{ secrets.TF_VARS_CONTENT }}
+                EOF
 
-      - name: Terraform Init
-        run: terraform init
+          - name: Terraform Init
+            run: terraform init
 
-      - name: Terraform Validate
-        run: terraform validate
+          - name: Terraform Validate
+            run: terraform validate
 
-      - name: Terraform Plan
-        run: |
-          terraform plan -input=false \
-            -var="ssh_public_key_path=/tmp/oci_keys/ssh_key.pub" \
-            -var="private_key_path="
+          - name: Terraform Plan
+            run: |
+                terraform plan -input=false \
+                -var="ssh_public_key_path=/tmp/oci_keys/ssh_key.pub" \
+                -var="private_key_path="
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          terraform apply -auto-approve -input=false \
-            -var="ssh_public_key_path=/tmp/oci_keys/ssh_key.pub" \
-            -var="private_key_path="
+          - name: Terraform Apply
+            if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+            run: |
+                terraform apply -auto-approve -input=false \
+                -var="ssh_public_key_path=/tmp/oci_keys/ssh_key.pub" \
+                -var="private_key_path="
