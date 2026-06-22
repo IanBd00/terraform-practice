@@ -38,51 +38,41 @@ project-1/
 │       └── provider.tf
 │
 ├── TERRAFORM-COMPARTMENT/
-│   ├── .terraform/
 │   ├── main.tf
 │   ├── variables.tf
 │   ├── outputs.tf
 │   ├── provider.tf
-│   ├── terraform.tfvars
-│   └── .terraform.lock.hcl
+│   └── terraform.tfvars
 │
 ├── COMPARTMENT-IMPORT-TERRAFORM/
-│   ├── .terraform/
 │   ├── data.tf
 │   ├── main.tf
 │   ├── variables.tf
 │   ├── outputs.tf
 │   ├── provider.tf
-│   ├── terraform.tfvars
-│   └── .terraform.lock.hcl
+│   └── terraform.tfvars
 │
-├── .terraform/
-├── .terraform.lock.hcl
 ├── .gitignore
-├── README.md
-├── terraform.tfstate
-└── terraform.tfstate.backup
+└── README.md
 ```
 
-## Descrição
+### Descrição
 
-| Diretório/Arquivo              | Função                                                                                      |
-| ------------------------------ | ------------------------------------------------------------------------------------------- |
-| `.github/workflows`            | Pipeline CI/CD utilizando GitHub Actions                                                    |
-| `modules/compartment`          | Módulo responsável pela criação e gerenciamento de Compartments na OCI                      |
-| `modules/network`              | Módulo responsável pelos recursos de rede (VCN, Subnets, NSGs e rotas)                      |
-| `modules/compute`              | Módulo responsável pelo provisionamento de instâncias Compute                               |
-| `TERRAFORM-COMPARTMENT`        | Ambiente principal para provisionamento da infraestrutura utilizando módulos                |
-| `COMPARTMENT-IMPORT-TERRAFORM` | Ambiente utilizado para importação e gerenciamento de recursos OCI existentes via Terraform |
-| `provider.tf`                  | Configuração do provider Oracle Cloud Infrastructure (OCI)                                  |
-| `variables.tf`                 | Declaração das variáveis utilizadas pelo ambiente                                           |
-| `terraform.tfvars`             | Valores atribuídos às variáveis do ambiente                                                 |
-| `outputs.tf`                   | Outputs exportados para consulta e integração entre módulos                                 |
-| `data.tf`                      | Data sources utilizados para consultar recursos existentes na OCI                           |
-| `.terraform/`                  | Diretório gerado automaticamente contendo providers e dependências                          |
-| `.terraform.lock.hcl`          | Arquivo de bloqueio das versões dos providers                                               |
-| `terraform.tfstate`            | Arquivo de estado do Terraform                                                              |
-| `terraform.tfstate.backup`     | Backup automático do estado do Terraform                                                    |
+| Diretório/Arquivo | Função |
+|------------------|---------|
+| `.github/workflows` | Pipeline CI/CD com GitHub Actions |
+| `modules/compartment` | Criação e gerenciamento de Compartments OCI |
+| `modules/network` | Provisionamento de VCN, Subnets, NSGs e recursos de rede |
+| `modules/compute` | Provisionamento de instâncias Compute OCI |
+| `TERRAFORM-COMPARTMENT` | Ambiente principal para criação da infraestrutura |
+| `COMPARTMENT-IMPORT-TERRAFORM` | Ambiente utilizado para importar recursos existentes para o Terraform |
+| `provider.tf` | Configuração do provider OCI |
+| `variables.tf` | Declaração das variáveis |
+| `terraform.tfvars` | Valores das variáveis do ambiente |
+| `outputs.tf` | Saídas exportadas pelo Terraform |
+| `data.tf` | Consulta de recursos existentes na OCI |
+| `.gitignore` | Arquivos ignorados pelo Git |
+| `README.md` | Documentação do projeto |
 
 
 
