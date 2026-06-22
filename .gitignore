@@ -22,3 +22,5 @@ crash.log
 # Sistema
 .DS_Store
 Thumbs.db
+
+init.ps1
