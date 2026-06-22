@@ -12,9 +12,7 @@ data "oci_core_images" "images" {
 }
 
 resource "oci_core_instance" "this" {
-  for_each = var.instances
-
-  display_name        = each.value
+  display_name        = var.instancename
   compartment_id      = var.compartment_id
   availability_domain = data.oci_identity_availability_domains.ad.availability_domains[0].name
   shape               = var.shape

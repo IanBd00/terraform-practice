@@ -19,7 +19,7 @@ variable "ssh_public_key_path" {
   type = string
 }
 
-variable "instances" {
-  type        = map(string)
+variable "instancename" {
+  type        = string
   description = "Mapa de instâncias a criar. Chave = nome local, valor = display_name."
 }
