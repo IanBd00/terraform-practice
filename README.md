@@ -72,7 +72,6 @@ project-1/
 | `COMPARTMENT-IMPORT-TERRAFORM` | Ambiente utilizado para importar recursos existentes para o Terraform |
 | `provider.tf` | Configuração do provider OCI |
 | `variables.tf` | Declaração das variáveis |
-| `terraform.tfvars` | Valores das variáveis do ambiente |
 | `outputs.tf` | Saídas exportadas pelo Terraform |
 | `data.tf` | Consulta de recursos existentes na OCI |
 | `.gitignore` | Arquivos ignorados pelo Git |
