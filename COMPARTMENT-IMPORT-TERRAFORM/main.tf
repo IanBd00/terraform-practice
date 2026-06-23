@@ -12,7 +12,7 @@ resource "oci_identity_compartment" "compartment_import" {
   description   = "Testando a função import do terraform para entendimentos."
   enable_delete = null
   freeform_tags = {}
-  name          = "compartment-import-test"
+  name          = "COMPARTMENT-IMPORT-TERRAFORM"
 }
 
 # import {
