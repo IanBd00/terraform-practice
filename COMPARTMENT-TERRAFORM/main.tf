@@ -6,7 +6,7 @@ module "compartment" {
 }
 
 module "network" {
-  source = "../modules/network"
+  source = "../modules/network(nsg)"
   compartment_id = module.compartment.compartment_id
   vcn_cidr = var.vcn_cidr
   vcn_name = var.vcn_display_name
